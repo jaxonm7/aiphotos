@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gift for You!</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background-color: #000;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #bait-ui {
+            text-align: center;
+            color: white;
+            z-index: 10;
+        }
+
+        .btn {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.2rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn:hover { background-color: #0056b3; }
+
+        #video-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="bait-ui">
+        <h1>You have (1) New Message!</h1>
+        <p>Click below to open your secure message.</p>
+        <button class="btn" onclick="launch()">Open Message</button>
+    </div>
+
+    <div id="video-container">
+        <iframe 
+            id="rick-video"
+            src="" 
+            allow="autoplay; encrypted-media; picture-in-picture" 
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <script>
+        function launch() {
+            // Hide the bait
+            document.getElementById('bait-ui').style.display = 'none';
+            
+            // Show the video container
+            const container = document.getElementById('video-container');
+            container.style.display = 'block';
+            
+            // Inject the video source with autoplay and no controls
+            // Rel=0 tries to hide related videos at the end
+            const video = document.getElementById('rick-video');
+            video.src = "https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&controls=0&rel=0&showinfo=0";
+        }
+    </script>
+
+</body>
+</html>
