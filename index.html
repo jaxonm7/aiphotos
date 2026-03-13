@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>AI Image Generator</title>
+<title>AI Photo Generator</title>
 
 <style>
 body{
-font-family: Arial, sans-serif;
+font-family:Arial;
 background:#111827;
 color:white;
-margin:0;
 display:flex;
 justify-content:center;
 align-items:center;
 height:100vh;
+margin:0;
 }
 
 .container{
@@ -22,59 +21,31 @@ padding:30px;
 border-radius:12px;
 width:420px;
 text-align:center;
-box-shadow:0 10px 25px rgba(0,0,0,0.6);
-}
-
-h1{
-margin-top:0;
-font-size:24px;
 }
 
 input{
 width:90%;
-padding:12px;
+padding:10px;
+margin-top:10px;
 border-radius:6px;
 border:none;
-margin-top:10px;
-font-size:15px;
 }
 
-button{
+.generate{
+display:inline-block;
 margin-top:15px;
-padding:12px 20px;
-border:none;
-border-radius:6px;
+padding:10px 20px;
 background:#3b82f6;
-color:white;
-font-size:16px;
+border-radius:6px;
 cursor:pointer;
 }
 
-button:hover{
-background:#2563eb;
-}
-
-#loading{
+/* hide checkbox */
+#trigger{
 display:none;
-margin-top:20px;
 }
 
-.progress{
-width:100%;
-height:12px;
-background:#374151;
-border-radius:6px;
-overflow:hidden;
-margin-top:10px;
-}
-
-.bar{
-height:100%;
-width:0%;
-background:#22c55e;
-transition:width 0.3s;
-}
-
+/* video hidden initially */
 video{
 position:fixed;
 top:0;
@@ -85,81 +56,39 @@ object-fit:cover;
 display:none;
 background:black;
 }
+
+/* when button clicked show video */
+#trigger:checked ~ video{
+display:block;
+}
+
+/* hide generator when triggered */
+#trigger:checked ~ .container{
+display:none;
+}
 </style>
+
 </head>
 
 <body>
 
-<div class="container" id="app">
+<input type="checkbox" id="trigger">
 
-<h1>AI Photo Generator</h1>
-<p>Enter a prompt to generate an AI image</p>
+<div class="container">
+<h2>AI Photo Generator</h2>
+<p>Describe the image you want</p>
 
-<input id="prompt" placeholder="A dragon flying over a cyberpunk city">
+<input placeholder="A dragon flying over a city">
 
 <br>
 
-<button onclick="startGeneration()">Generate</button>
-
-<div id="loading">
-<p>Generating image...</p>
-
-<div class="progress">
-<div class="bar" id="bar"></div>
-</div>
-
-<p id="percent">0%</p>
+<label for="trigger" class="generate">Generate</label>
 
 </div>
 
-</div>
-
-<video id="rickroll" autoplay controls>
-<source src="YTDown.com_YouTube_Rick-Astley-Never-Gonna-Give-You-Up-Offi_Media_dQw4w9WgXcQ_001_1080p (online-video-cutter.com) (1).mp4" type="video/mp4">
+<video controls>
+<source src="rickroll.mp4" type="video/mp4">
 </video>
-
-<script>
-
-function startGeneration(){
-
-let prompt=document.getElementById("prompt").value;
-
-if(prompt.trim()===""){
-alert("Please enter a prompt");
-return;
-}
-
-document.getElementById("loading").style.display="block";
-
-let bar=document.getElementById("bar");
-let percentText=document.getElementById("percent");
-
-let progress=0;
-
-let interval=setInterval(function(){
-
-progress+=4;
-
-bar.style.width=progress+"%";
-percentText.innerText=progress+"%";
-
-if(progress>=100){
-
-clearInterval(interval);
-
-document.getElementById("app").style.display="none";
-
-let video=document.getElementById("rickroll");
-video.style.display="block";
-video.play();
-
-}
-
-},120);
-
-}
-
-</script>
 
 </body>
 </html>
